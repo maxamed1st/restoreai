@@ -15,7 +15,7 @@ export async function POST(request: Request) {
     email,
     password,
     options: {
-      emailRedirectTo: `${requestUrl.origin}/auth/callback`,
+      emailRedirectTo: `http://localhost:54321/auth/v1/callback`,
     },
   })
 
