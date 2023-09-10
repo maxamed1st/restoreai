@@ -1,5 +1,5 @@
-import Loader from "./components/Loader";
+import DownloadImage from "./components/DownloadImage";
 
 export default function Dashboard() {
-  return <Loader />;
+  return <DownloadImage />;
 }
