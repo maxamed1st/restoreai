@@ -1,5 +1,5 @@
-import UploadImageForm from "./components/uploadImageForm";
+import Loader from "./components/Loader";
 
 export default function Dashboard() {
-  return <UploadImageForm />;
+  return <Loader />;
 }
