@@ -1,5 +1,5 @@
-import DownloadImage from "./components/DownloadImage";
+import ImageZone from "./components/ImageZone";
 
 export default function Dashboard() {
-  return <DownloadImage />;
+  return <ImageZone />;
 }

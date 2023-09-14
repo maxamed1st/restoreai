@@ -14,12 +14,8 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Input } from "@/components/ui/input"
 
-const FormSchema = z.object({
-  image: z.instanceof(File, {
-    message: "You must upload an image",
-  }),
+export const FormSchema = z.object({
   enhance: z.enum(["2x", "4x", "8x", "no"], {
     required_error: "You need to select an enhancement factor",
   }),
@@ -28,31 +24,14 @@ const FormSchema = z.object({
   }),
 })
 
-export default function UploadImageForm({image}: {image: string}) {
+export default function UploadImageForm({handleUpload}: {handleUpload: any}) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   })
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
-  }
-
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 ">
-
-        <FormField
-          control={form.control}
-          name="image"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input type="file" accept="image/jpg, image/jpeg, image/png" value={image}/>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-          />
+      <form id="upload-form" onSubmit={form.handleSubmit(handleUpload)} className="w-2/3 ">
 
         <FormField
           control={form.control}
