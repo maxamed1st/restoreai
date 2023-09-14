@@ -1,14 +1,10 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
 import Link from 'next/link'
 import LogoutButton from '@/components/LogoutButton'
 
 export default async function Index() {
-  const supabase = createServerComponentClient({ cookies })
+  //get user
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  const user = null
 
   return (
     <main className="w-full flex flex-col items-center">
@@ -18,7 +14,7 @@ export default async function Index() {
           <div>
             {user ? (
               <div className="flex items-center gap-4">
-                Hey, {user.email}!
+                Hey, {user}!
                 <LogoutButton />
               </div>
             ) : (

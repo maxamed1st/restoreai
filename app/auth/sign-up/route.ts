@@ -1,4 +1,3 @@
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 
@@ -9,15 +8,10 @@ export async function POST(request: Request) {
   const formData = await request.formData()
   const email = String(formData.get('email'))
   const password = String(formData.get('password'))
-  const supabase = createRouteHandlerClient({ cookies })
 
-  const { error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      emailRedirectTo: `http://localhost:54321/auth/v1/callback`,
-    },
-  })
+  //sing up user
+
+  const { error } = {error: null};
 
   if (error) {
     return NextResponse.redirect(
