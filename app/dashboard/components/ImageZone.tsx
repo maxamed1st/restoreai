@@ -9,8 +9,8 @@ import '@uppy/dashboard/dist/style.min.css';
 
 import { useEffect, useRef, useState } from 'react';
 import UploadImageForm from './uploadImageForm';
-import { FormSchema } from './uploadImageForm';
-import * as z from 'zod';
+import { formType } from './uploadImageForm';
+import { SubmitHandler } from 'react-hook-form';
 
 const uppy = new Uppy().use(XHR, {endpoint: "/restore/upload"});
 //allow only one image at a time
@@ -41,7 +41,7 @@ export default function Upload() {
   }, []);
 
   //add form information as meta
-  async function handleUpload (data: z.infer<typeof FormSchema>) {
+  const handleUpload: SubmitHandler<formType> = (data) => {
     if(!fileAdded) {
       uppy.info("You must upload image", "error");
       return;

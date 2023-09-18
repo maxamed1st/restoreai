@@ -1,7 +1,7 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
+import { SubmitHandler, useForm } from "react-hook-form"
 import * as z from "zod"
 
 import { Button } from "@/components/ui/button"
@@ -15,18 +15,20 @@ import {
 } from "@/components/ui/form"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 
-export const FormSchema = z.object({
-  enhance: z.enum(["2x", "4x", "8x", "no"], {
-    required_error: "You need to select an enhancement factor",
+export const formSchema = z.object({
+  enhance: z.enum(["2", "4", "8", "none"], {
+    required_error: "Select an enhancement factor",
   }),
   colorize: z.enum(["yes", "no"], {
-    required_error: "You must choose Yes or No regarding colorization of the picture",
+    required_error: "Opt in or out of colorization",
   }),
-})
+});
 
-export default function UploadImageForm({handleUpload}: {handleUpload: any}) {
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
+export type formType = z.infer<typeof formSchema>;
+
+export default function UploadImageForm({handleUpload}: {handleUpload: SubmitHandler<formType>}) {
+  const form = useForm<formType>({
+    resolver: zodResolver(formSchema),
   })
 
   return (
@@ -47,30 +49,30 @@ export default function UploadImageForm({handleUpload}: {handleUpload: any}) {
                 >
                   <FormItem className="flex items-center ">
                     <FormControl>
-                      <RadioGroupItem value="2x" id="2"/>
+                      <RadioGroupItem value="2"/>
                     </FormControl>
                     <FormLabel className="font-normal">2x</FormLabel>
                   </FormItem>
 
                   <FormItem className="flex items-center ">
                     <FormControl>
-                      <RadioGroupItem value="4x" />
+                      <RadioGroupItem value="4" />
                     </FormControl>
                     <FormLabel className="font-normal">4x</FormLabel>
                   </FormItem>
 
                   <FormItem className="flex items-center ">
                     <FormControl>
-                      <RadioGroupItem value="8x" />
+                      <RadioGroupItem value="8" />
                     </FormControl>
                     <FormLabel className="font-normal">8x</FormLabel>
                   </FormItem>
 
                   <FormItem className="flex items-center ">
                     <FormControl>
-                      <RadioGroupItem value="no" />
+                      <RadioGroupItem value="none" />
                     </FormControl>
-                    <FormLabel className="font-normal">No</FormLabel>
+                    <FormLabel className="font-normal">None</FormLabel>
                   </FormItem>
 
                 </RadioGroup>
