@@ -12,10 +12,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        <main className="min-h-screen bg-background flex flex-col items-center">
+      <body className="min-h-screen bg-background flex flex-col items-center">
           {children}
-        </main>
       </body>
     </html>
   )
