@@ -48,7 +48,8 @@ export default function Upload() {
     }
     uppy.setMeta(data);
     uppy.upload();
-    previewImage(originalImage, restoredImageContainerRef);
+    previewImage(originalImage, originalImageContainerRef);
+    previewImage(originalImage, restoredImageContainerRef); //placeholder for the restored image for now
     setUploaded(true);
   }
 
@@ -56,24 +57,21 @@ export default function Upload() {
     <main className='flex h-screen justify-center items-center p-7 gap-4'>
       { !uploaded && 
       <>
-        <section className='w-full'>
+        <section className='max-w-[600px] max-h-[600px]'>
           <Dashboard 
             uppy={uppy} 
-            hideUploadButton 
-            width="1/3" 
-            height="1/3"
-            
+            hideUploadButton
             /> 
         </section>
-        <section className='w-full'>
+        <section className='max-w-[600px] max-h-[600px]'>
           <UploadImageForm handleUpload={handleUpload} />
         </section>
       </>
       }
       { uploaded &&
         <>
-          <section ref={originalImageContainerRef} className=''></section>
-          <section ref={restoredImageContainerRef} className='w-full'></section>
+          <section ref={originalImageContainerRef} className='max-w-[600px] max-h-[600px]'></section>
+          <section ref={restoredImageContainerRef} className='max-w-[600px] max-h-[600px]'></section>
         </>
       }
     </main>
@@ -87,6 +85,7 @@ function previewImage(image: any, ref:any) {
     const img = document.createElement("img");
     img.src = e.target.result;
     img.alt = image.name;
+    img.classList.add('max-w-[600px]',  'max-h-[600px]')
     ref.current.appendChild(img);
   };
 
