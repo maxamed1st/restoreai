@@ -12,7 +12,7 @@ import UploadImageForm from './uploadImageForm';
 import { formType } from './uploadImageForm';
 import { SubmitHandler } from 'react-hook-form';
 
-const uppy = new Uppy().use(XHR, {endpoint: "/restore/upload"});
+const uppy = new Uppy().use(XHR, {endpoint: "/api/upload"});
 //allow only one image at a time
 uppy.setOptions({
   restrictions: {
