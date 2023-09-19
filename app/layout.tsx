@@ -1,4 +1,6 @@
 import './globals.css'
+import AuthProvider from './context/AuthProvider'
+import Navbar from '@/components/Navbar'
 
 export const metadata = {
   title: 'Restore AI',
@@ -13,7 +15,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-screen bg-background flex flex-col items-center">
+        <AuthProvider>
+          <Navbar />
           {children}
+        </AuthProvider>
       </body>
     </html>
   )
