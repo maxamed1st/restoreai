@@ -17,4 +17,10 @@ describe("Dashboard", () => {
     const form = document.querySelector('form');
     expect(form).toBeInTheDocument();
   })
+
+  it("should contain Uppy instance", () => {
+    const { getByText } = render( <Dashboard />);
+    const uppy = getByText('Uppy');
+    expect(uppy).toBeInTheDocument();
+  })
 })
