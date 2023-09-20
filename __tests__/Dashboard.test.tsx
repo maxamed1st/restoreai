@@ -15,6 +15,6 @@ describe("Dashboard", () => {
   it("renders upload form", async () => {
     render(<Dashboard />);
     const form = document.querySelector('form');
-    expect(form).toBeInTheDocument;
+    expect(form).toBeInTheDocument();
   })
 })
