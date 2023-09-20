@@ -1,4 +1,4 @@
-import Home from "../app/page";
+import Home from "@/app/page";
 import { expect, it, describe } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
