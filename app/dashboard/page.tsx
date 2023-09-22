@@ -21,7 +21,7 @@ uppy.setOptions({
   }
 });
 
-export default function Upload({uppy}: { uppy: Uppy}) {
+export default function Upload() {
   const [originalImage, setOriginalImage] = useState<null | any>(null);
   const [fileAdded, setFileAdded] = useState(false);
   const [uploaded, setUploaded] = useState(false);
