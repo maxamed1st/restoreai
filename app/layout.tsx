@@ -1,6 +1,6 @@
 import './globals.css'
 import AuthProvider from './context/AuthProvider'
-import Navbar from '@/components/Navbar'
+import Navbar from '@/app/components/Navbar'
 
 export const metadata = {
   title: 'Restore AI',

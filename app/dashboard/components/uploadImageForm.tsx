@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { SubmitHandler, useForm } from "react-hook-form"
 import * as z from "zod"
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/app/components/ui/button"
 import {
   Form,
   FormControl,
@@ -12,8 +12,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+} from "@/app/components/ui/form"
+import { RadioGroup, RadioGroupItem } from "@/app/components/ui/radio-group"
 
 export const formSchema = z.object({
   enhance: z.enum(["2", "4", "8", "none"], {

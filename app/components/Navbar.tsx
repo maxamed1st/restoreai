@@ -1,6 +1,6 @@
 'use client'
 
-import FormActionButton from "@/lib/FormActionButton";
+import FormActionButton from "@/app/lib/FormActionButton";
 import { useSession } from "next-auth/react";
 
 export default function Navbar() {
