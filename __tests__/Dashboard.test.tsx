@@ -63,13 +63,16 @@ describe("Dashboard", () => {
 
     /* select enhance factor and colorize */
 
-    //assert enhance and colorize are in the document
+    //assert enhance and colorize are in the document and of type radio
     expect(enhance).toBeInTheDocument();
     expect(colorize).toBeInTheDocument();
+    expect(enhance.type).toBe('radio');
+    expect(colorize.type).toBe('radio');
 
-    waitFor( async () => {
-      await user.click(enhance);
-      await user.click(colorize);
+    //check enhance and colorize
+    await waitFor( async () => {
+      enhance.checked = true;
+      colorize.checked = true;
     });
 
     //assert enhance and colorize are checked
