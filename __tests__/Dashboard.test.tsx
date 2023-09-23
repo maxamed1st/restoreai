@@ -57,8 +57,9 @@ describe("Dashboard", () => {
     //upload the image with fireEvent.change
     await waitFor ( async () => {
       fireEvent.change(uploadInput, { 
-        target: { files: [new File(['(⌐□_□)'], 'test.png', { type: 'image/png' })] } 
+        target: { files: [new File(['(⌐□_□)'], 'test.png', { type: 'image/png' })] }
       });
+      expect(uploadInput.files).toHaveLength(1);
     });
 
     /* select enhance factor and colorize */
