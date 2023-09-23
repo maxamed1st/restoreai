@@ -1,6 +1,7 @@
 import Dashboard from "@/app/dashboard/page";
 import { describe, it, expect, vi } from "vitest";
-import { render } from "@testing-library/react";
+import { render, fireEvent, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 //prevent resize observer undefined error
 const ResizeObserverMock = vi.fn(() => ({
@@ -10,6 +11,8 @@ const ResizeObserverMock = vi.fn(() => ({
 }))
 
 vi.stubGlobal('ResizeObserver', ResizeObserverMock)
+
+window.URL.createObjectURL = vi.fn();
 
 describe("Dashboard", () => {
   it("renders upload form", () => {
@@ -23,4 +26,63 @@ describe("Dashboard", () => {
     const uppy = getByText('Uppy')
     expect(uppy).toBeInTheDocument();
   })
-})
+
+  it('uploads an image', async () => {
+    /* test upload functionality */
+
+    /* set up variables */
+    const user = userEvent.setup();
+    const { container } = render(<Dashboard />);
+    const uploadInput = container.querySelector('input[type=file]') as HTMLInputElement;
+    const submitButton = container.querySelector('button[type=submit]') as HTMLButtonElement;
+    const enhance = container.querySelector('input[value="2"]') as HTMLInputElement;
+    const colorize = container.querySelector('input[value=yes]') as HTMLInputElement;
+
+    //assert the input fields not to be undefined
+    expect(enhance).not.toBeUndefined();
+    expect(colorize).not.toBeUndefined();
+    expect(uploadInput).not.toBeUndefined();
+    expect(submitButton).not.toBeUndefined();
+
+    /* upload image */
+
+    //assert upload input and submit button are in the document
+    expect(uploadInput).toBeInTheDocument();
+    expect(submitButton).toBeInTheDocument();
+    
+    //assert submit button and upload input are of type submit and file respectively
+    expect(uploadInput.type).toBe('file');
+    expect(submitButton.type).toBe('submit');
+    
+    //upload the image with fireEvent.change
+    await waitFor ( async () => {
+      fireEvent.change(uploadInput, { 
+        target: { files: [new File(['(⌐□_□)'], 'test.png', { type: 'image/png' })] } 
+      });
+    });
+
+    /* select enhance factor and colorize */
+
+    //assert enhance and colorize are in the document
+    expect(enhance).toBeInTheDocument();
+    expect(colorize).toBeInTheDocument();
+
+    waitFor( async () => {
+      await user.click(enhance);
+      await user.click(colorize);
+    });
+
+    //assert enhance and colorize are checked
+    expect(enhance.checked).toBe(true);
+    expect(colorize.checked).toBe(true);
+
+    /* submit form with image */
+    await waitFor ( async () => {
+      await user.click(submitButton);
+    }, { timeout: 10000 });
+
+    //assert image to be in the document
+    const image = container.querySelector('img');
+    expect(image).toBeInTheDocument();
+  });
+});
