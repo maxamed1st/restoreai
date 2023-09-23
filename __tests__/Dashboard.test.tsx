@@ -1,7 +1,6 @@
 import Dashboard from "@/app/dashboard/page";
 import { describe, it, expect, vi } from "vitest";
 import { render, fireEvent, waitFor } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 
 //prevent resize observer undefined error
 const ResizeObserverMock = vi.fn(() => ({
@@ -31,7 +30,6 @@ describe("Dashboard", () => {
     /* test upload functionality */
 
     /* set up variables */
-    const user = userEvent.setup();
     const { container } = render(<Dashboard />);
     const uploadInput = container.querySelector('input[type=file]') as HTMLInputElement;
     const submitButton = container.querySelector('button[type=submit]') as HTMLButtonElement;
@@ -83,8 +81,8 @@ describe("Dashboard", () => {
 
     /* submit form with image */
     await waitFor ( async () => {
-      await user.click(submitButton);
-    }, { timeout: 10000 });
+      submitButton.click();
+    });
 
     //assert image to be in the document
     const image = container.querySelector('img');
