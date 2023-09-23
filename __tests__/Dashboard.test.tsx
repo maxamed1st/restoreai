@@ -73,11 +73,12 @@ describe("Dashboard", () => {
     await waitFor( async () => {
       enhance.checked = true;
       colorize.checked = true;
+
+      //assert enhance and colorize are checked
+      expect(enhance.checked).toBe(true);
+      expect(colorize.checked).toBe(true);
     });
 
-    //assert enhance and colorize are checked
-    expect(enhance.checked).toBe(true);
-    expect(colorize.checked).toBe(true);
 
     /* submit form with image */
     await waitFor ( async () => {
