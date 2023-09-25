@@ -1,4 +1,4 @@
-import Dashboard from "@/app/dashboard/page";
+import Dashboard from "@/dashboard/page";
 import { describe, it, expect, vi } from "vitest";
 import { render, fireEvent, waitFor } from "@testing-library/react";
 
