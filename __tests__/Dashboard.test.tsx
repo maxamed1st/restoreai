@@ -53,7 +53,7 @@ describe("Dashboard", () => {
     expect(submitButton.type).toBe('submit');
     
     //upload the image with fireEvent.change
-    await waitFor ( async () => {
+    await waitFor( () => {
       fireEvent.change(uploadInput, { 
         target: { files: [new File(['(⌐□_□)'], 'test.png', { type: 'image/png' })] }
       });
@@ -69,7 +69,7 @@ describe("Dashboard", () => {
     expect(colorize.type).toBe('radio');
 
     //check enhance and colorize
-    await waitFor( async () => {
+    await waitFor( () => {
       enhance.checked = true;
       colorize.checked = true;
 
@@ -80,7 +80,7 @@ describe("Dashboard", () => {
 
 
     /* submit form with image */
-    await waitFor ( async () => {
+    await waitFor( () => {
       submitButton.click();
     });
 
