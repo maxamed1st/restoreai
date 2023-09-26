@@ -70,7 +70,7 @@ export default function UploadImageForm({handleUpload}: {handleUpload: SubmitHan
 
                   <FormItem className="flex items-center ">
                     <FormControl>
-                      <RadioGroupItem value="none" />
+                      <RadioGroupItem value="none" checked/>
                     </FormControl>
                     <FormLabel className="font-normal">None</FormLabel>
                   </FormItem>
@@ -103,7 +103,7 @@ export default function UploadImageForm({handleUpload}: {handleUpload: SubmitHan
 
                   <FormItem className="flex items-center ">
                     <FormControl>
-                      <RadioGroupItem value="no" />
+                      <RadioGroupItem value="no" checked/>
                     </FormControl>
                     <FormLabel className="font-normal">No</FormLabel>
                   </FormItem>
