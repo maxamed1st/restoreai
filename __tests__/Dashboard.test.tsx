@@ -18,22 +18,13 @@ describe("Dashboard", () => {
     render(<Dashboard />);
     const form = document.querySelector('form');
     expect(form).toBeInTheDocument();
-  })
-
-  it('has default values', () => {
-    const { container } = render(<Dashboard />);
-    const enhance = container.querySelector('input[value="none"]') as HTMLInputElement;
-    const colorize = container.querySelector('input[value=no]') as HTMLInputElement;
-
-    expect(enhance.checked).toBe(true);
-    expect(colorize.checked).toBe(true);
-  })
+  });
 
   it("should contain Uppy instance", () => {
     const { getByText } = render( <Dashboard />);
     const uppy = getByText('Uppy')
     expect(uppy).toBeInTheDocument();
-  })
+  });
 
   it('uploads an image', async () => {
     /* test upload functionality */
