@@ -9,7 +9,7 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: './__tests__/setup.ts',
-    include: ['**/__tests__/**.test.**'],
+    include: ['./__tests__/**.test.**'],
     testTimeout: 10000,
   },
   resolve: {
