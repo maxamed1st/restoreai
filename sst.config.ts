@@ -1,5 +1,6 @@
 import { SSTConfig } from "sst";
-import { NextjsSite } from "sst/constructs";
+import { NextjsSite, use } from "sst/constructs";
+import storageStack from "./stacks/storageStack";
 
 export default {
   config(_input) {
@@ -8,10 +9,14 @@ export default {
       region: "eu-west-2",
     };
   },
-  stacks(app) {
-    app.stack(function Site({ stack }) {
-      const site = new NextjsSite(stack, "site");
 
+  stacks(app) {
+    app.stack(storageStack);
+
+    app.stack(function Site({ stack }) {
+      const site = new NextjsSite(stack, "site", {
+        bind: [use(storageStack)]
+      });
       stack.addOutputs({
         SiteUrl: site.url,
       });
