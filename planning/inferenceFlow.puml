@@ -37,7 +37,6 @@ System_Boundary(inferenc, "Inference") {
   s3 --> evt: "image uploaded"
   evt --> extract: "extract metadata"
   extract --> evt: "extracted data"
-  extract --> s3: "save image without the data"
 
   'restroe image
   skinparam DefaultFontColor white
