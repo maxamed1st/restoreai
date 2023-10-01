@@ -1,0 +1,61 @@
+@startuml inference-flow
+
+title Inference Flow
+
+
+left to right direction
+
+set separator none
+
+!include <C4/C4>
+!include <C4/C4_Context>
+!include <C4/C4_Component>
+
+skinparam BackgroundColor black
+skinparam DefaultFontColor gold
+skinparam ArrowColor gold
+
+System_Boundary(inferenc, "Inference") {
+  Container_Boundary(nextjs, "NextJS") {
+    Component(dashboard, "Dashboard")
+    }
+
+  System_Boundary(aws, "AWS") {
+  Component(s3, "S3")
+
+  Container_Boundary(functions, "Lambda") {
+    Component(extract, "Extract Metadata")
+    Component(restore, "Restore Image")
+    Component(colorize, "Colorize Image")
+  }
+
+  Component(evt, "Event Bridge")
+  }
+
+  'upload image and extract enhancment factor and colorization
+  dashboard --> s3: "upload image"
+  s3 --> evt: "image uploaded"
+  evt --> extract: "extract metadata"
+  extract --> evt: "extracted data"
+  extract --> s3: "save image without the data"
+
+  'restroe image
+  skinparam DefaultFontColor white
+  skinparam ArrowColor white
+  evt --> restore: "restore image"
+  restore --> evt: "image restored"
+
+  'colorize image if necessary
+  skinparam DefaultFontColor green
+  skinparam ArrowColor green
+  evt --> colorize: "colorize image"
+  colorize --> evt: "image colorized"
+
+  'save image
+  skinparam DefaultFontColor gray
+  skinparam ArrowColor gray
+  evt --> s3: "save image"
+  s3 --> dashboard: "show image"
+}
+
+@enduml
