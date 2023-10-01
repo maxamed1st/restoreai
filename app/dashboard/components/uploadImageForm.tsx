@@ -16,7 +16,7 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 
 export const formSchema = z.object({
-  enhance: z.enum(["2", "4", "8", "none"], {
+  enhance: z.enum(["1","2", "4", "8"], {
     required_error: "Select an enhancement factor",
   }),
   colorize: z.enum(["yes", "no"], {
@@ -27,8 +27,15 @@ export const formSchema = z.object({
 export type formType = z.infer<typeof formSchema>;
 
 export default function UploadImageForm({handleUpload}: {handleUpload: SubmitHandler<formType>}) {
+  //set default values
+  const defaultValues: formType = {
+    enhance: "1",
+    colorize: "no",
+  };
+
   const form = useForm<formType>({
     resolver: zodResolver(formSchema),
+    defaultValues,
   })
 
   return (
@@ -49,7 +56,14 @@ export default function UploadImageForm({handleUpload}: {handleUpload: SubmitHan
                 >
                   <FormItem className="flex items-center ">
                     <FormControl>
-                      <RadioGroupItem value="2"/>
+                      <RadioGroupItem value="1"/>
+                    </FormControl>
+                    <FormLabel className="font-normal">none</FormLabel>
+                  </FormItem>
+
+                  <FormItem className="flex items-center ">
+                    <FormControl>
+                      <RadioGroupItem value="2" />
                     </FormControl>
                     <FormLabel className="font-normal">2x</FormLabel>
                   </FormItem>
@@ -63,16 +77,9 @@ export default function UploadImageForm({handleUpload}: {handleUpload: SubmitHan
 
                   <FormItem className="flex items-center ">
                     <FormControl>
-                      <RadioGroupItem value="8" />
+                      <RadioGroupItem value="8"/>
                     </FormControl>
                     <FormLabel className="font-normal">8x</FormLabel>
-                  </FormItem>
-
-                  <FormItem className="flex items-center ">
-                    <FormControl>
-                      <RadioGroupItem value="none" checked/>
-                    </FormControl>
-                    <FormLabel className="font-normal">None</FormLabel>
                   </FormItem>
 
                 </RadioGroup>
@@ -103,7 +110,7 @@ export default function UploadImageForm({handleUpload}: {handleUpload: SubmitHan
 
                   <FormItem className="flex items-center ">
                     <FormControl>
-                      <RadioGroupItem value="no" checked/>
+                      <RadioGroupItem value="no"/>
                     </FormControl>
                     <FormLabel className="font-normal">No</FormLabel>
                   </FormItem>
