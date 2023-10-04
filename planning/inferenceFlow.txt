@@ -1,0 +1,19 @@
+Detailed action plan for the inference flow
+
+restore: lambda
+colorize: lambda
+save: lambda
+
+1. Image is uploaded to S3
+2. EventBridge triggers restore with the image as payload
+3. restore extracts the scale from the image payload 
+4. restore sends the image to replicate with the scale specified
+5. Once restore gets back a restored image:
+  If colorization is needed restore triggers "image restored" and then sends the restored image as payload.
+  Otherwise restore triggers 'process complete' EventBridge
+6. EventBridge triggers colorize with the restored image as payload
+7. colorize sends the image to replicate and once the image is colorized
+  it sends an a 'process finished' event with colorized image as payload
+8. EventBridge triggers save
+9. save adds the processed image to S3
+10. Finally the frontend can get the processed image
