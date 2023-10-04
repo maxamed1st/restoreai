@@ -3,7 +3,7 @@
 title Inference Flow
 
 
-left to right direction
+top to bottom direction
 
 set separator none
 
@@ -24,9 +24,9 @@ System_Boundary(inferenc, "Inference") {
   Component(s3, "S3")
 
   Container_Boundary(functions, "Lambda") {
-    Component(extract, "Extract Metadata")
     Component(restore, "Restore Image")
     Component(colorize, "Colorize Image")
+    Component(save, "save image to S3")
   }
 
   Component(evt, "Event Bridge")
@@ -40,32 +40,31 @@ System_Boundary(inferenc, "Inference") {
   }
 
   'upload image and extract enhancment factor and colorization
-  dashboard --> s3: "upload image"
-  s3 --> evt: "image uploaded"
-  evt --> extract: "extract metadata"
-  extract --> evt: "extracted data"
+  dashboard ---> s3: "upload image"
+  s3 ---> evt: "image uploaded"
 
   'restroe image
   skinparam DefaultFontColor white
   skinparam ArrowColor white
-  evt --> restore: "restore image"
-  restore --> restoration: "infer restoration"
-  restore <-- restoration: "restored image"
-  restore --> evt: "image restored"
+  evt ---> restore: "restore image"
+  restore ---> restoration: "infer restoration"
+  restore <--- restoration: "restored image"
+  restore ---> evt: "image restored"
 
   'colorize image if necessary
   skinparam DefaultFontColor green
   skinparam ArrowColor green
-  evt --> colorize: "colorize image"
-  colorize --> colorization: "infer colorization"
-  colorize <-- colorization: "colorized image"
-  colorize --> evt: "image colorized"
+  evt ---> colorize: "colorize image"
+  colorize ---> colorization: "infer colorization"
+  colorize <--- colorization: "colorized image"
+  colorize ---> evt: "image colorized"
 
   'save image
   skinparam DefaultFontColor gray
   skinparam ArrowColor gray
-  evt --> s3: "save image"
-  s3 --> dashboard: "show image"
+  evt ---> save: "save image"
+  save ---> s3: "saving the image"
+  s3 ---> dashboard: "show image"
 }
 
 @enduml
