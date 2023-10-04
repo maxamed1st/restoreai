@@ -32,6 +32,13 @@ System_Boundary(inferenc, "Inference") {
   Component(evt, "Event Bridge")
   }
 
+  System_Boundary(replicate, "Replicate") {
+    'model Naihgtmareai/real-esrgan
+    Component(restoration, "real-esrgan")
+    'model Cjwbw/BigColor
+    Component(colorization, "BigColor")
+  }
+
   'upload image and extract enhancment factor and colorization
   dashboard --> s3: "upload image"
   s3 --> evt: "image uploaded"
@@ -42,12 +49,16 @@ System_Boundary(inferenc, "Inference") {
   skinparam DefaultFontColor white
   skinparam ArrowColor white
   evt --> restore: "restore image"
+  restore --> restoration: "infer restoration"
+  restore <-- restoration: "restored image"
   restore --> evt: "image restored"
 
   'colorize image if necessary
   skinparam DefaultFontColor green
   skinparam ArrowColor green
   evt --> colorize: "colorize image"
+  colorize --> colorization: "infer colorization"
+  colorize <-- colorization: "colorized image"
   colorize --> evt: "image colorized"
 
   'save image
