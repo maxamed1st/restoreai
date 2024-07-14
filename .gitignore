@@ -34,8 +34,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# sst
+# local 
 /.sst/
 /test-results/
 /playwright-report/
 /playwright/.cache/
+package-lock.json
